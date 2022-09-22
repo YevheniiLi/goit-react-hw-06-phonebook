@@ -1,7 +1,7 @@
 import styled from 'styled-components';
 
 export const Phonebook = styled.div`
-  background-color: ${p => p.theme.colors.silver};
+  background-color: ${p => p.theme.colors.sub};
   display: grid;
   flex-direction: column;
   justify-items: center;

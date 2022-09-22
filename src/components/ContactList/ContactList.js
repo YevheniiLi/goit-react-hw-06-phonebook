@@ -1,7 +1,7 @@
 import { Box } from 'components/Box';
 import { ContactItem, ContactText } from './ContactList.styled';
 import PropTypes from 'prop-types';
-import { ButtonForm } from 'components/ContactForm/ContactForm.styyled';
+import { ButtonForm } from 'components/ContactForm/ContactForm.styled';
 
 export const ContactList = ({ contacts, onRemoveClick }) => {
   return (
