@@ -10,6 +10,7 @@ const schema = yup.object().shape({
   number: yup.number().min(4).required(),
 });
 
+
 export const ContactForm = ({ onSubmit }) => {
   const initialValues = {
     name: '',
