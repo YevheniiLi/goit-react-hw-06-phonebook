@@ -1,5 +1,3 @@
-// import { useSelector } from "react-redux";
+export const getContacts = state => state.contacts.items;
 
-// const MyComponent = () => {
-//     const value = useSelector(state => state.some.value)
-// }
+export const getFilter = state => state.contacts.filter;

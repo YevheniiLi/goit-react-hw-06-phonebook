@@ -6,13 +6,18 @@ import { Filter } from '../Filter/Filter';
 import { Phonebook } from './App.styled';
 import { useLocalStorage } from 'components/hooks/hooks';
 import { useState } from 'react';
+import { addActionContact, changeActionFilter, deleteActionContact } from 'redux/actions';
+import { useDispatch } from 'react-redux';
+
 
 export const App = () => {
   const [contacts, setContacts] = useLocalStorage('contacts', []);
   const [filter, setFilter] = useState('');
+  const dispatch = useDispatch();
 
   const addNewContact = (values, actions) => {
-    const newContact = {
+    
+      const newContact = {
       id: nanoid(),
       name: values.name,
       number: values.number,
@@ -27,15 +32,19 @@ export const App = () => {
       alert(`${newContact.name} is already in contacts!`);
     } else {
       setContacts([...contacts, newContact]);
+
+      dispatch(addActionContact(newContact));
       actions.resetForm();
     }
   };
 
   const changeFilter = e => {
+    dispatch(changeActionFilter(filter))
     setFilter(e.target.value);
   };
 
   const deleteContact = contactId => {
+    dispatch(deleteActionContact(contactId))
     setContacts(contacts.filter(contact => contact.id !== contactId));
   };
 

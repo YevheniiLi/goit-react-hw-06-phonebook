@@ -1,20 +1,8 @@
 import { createStore } from 'redux';
-import { devToolsEnhancer } from "@redux-devtools/extension";
-import { statusFilters } from './constants';
+import { devToolsEnhancer } from '@redux-devtools/extension';
+import { rootReducer} from 'redux/reducer'
 
-const inititalState = {
-    contacts : {
-        items: [],
-        filter: statusFilters.all,
-    },
-}
 
-const rootReducer = (state = inititalState, action) => {
-    return state;
-};
 
 const enhancer = devToolsEnhancer();
-export const store = createStore(rootReducer,enhancer);
-
-
-
+export const store = createStore(rootReducer, enhancer);
