@@ -1,3 +1,14 @@
+import { createAction } from "@reduxjs/toolkit";
+
+export const addActionContact = createAction('contact/addActionContact');
+export const deleteActionContact = createAction('contact/deleteActionContact');
+export const changeActionFilter = createAction('filter/changeActionFilter');
+
+
+
+
+
+
 // Redux
 
 // export const addActionContact = newContact => {
@@ -25,8 +36,3 @@
 
 // Redux Toolkit
 
-import { createAction } from "@reduxjs/toolkit";
-
-export const addActionContact = createAction('contact/addActionContact');
-export const deleteActionContact = createAction('contact/deleteActionContact');
-export const changeActionFilter = createAction('filter/changeActionFilter');

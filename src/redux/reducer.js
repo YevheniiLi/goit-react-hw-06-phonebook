@@ -1,4 +1,36 @@
-// Redux ToolKit
+// Redux ToolKit + createSlice
+
+// import { createSlice } from "@reduxjs/toolkit";
+// export const contactSlice = createSlice({
+//     name: 'contacts',
+//     inititalState: {
+//         items: [],
+//         filter: '',
+//     },
+//     reducers: {
+//         addActionContact: (state, action) => {
+//             return { ...state, items: [...state.items, action.payload] };
+//           },
+//         deleteActionContact: (state, action) => {
+//             return {
+//               ...state,
+//               items: state.items.filter(contact => contact.id !== action.payload),
+//             };
+//           },
+//         changeActionFilter: (state, action) => {
+//             return { ...state, filter: action.payload };
+//           },
+//         },
+// })
+
+// export const { addActionContact, deleteActionContact, changeActionFilter} = contactSlice.actions;
+// export const contactReducer = contactSlice.reducer;
+
+
+
+
+
+// Redux ToolKit + createReducer
 
 import { addActionContact, deleteActionContact,changeActionFilter } from "./actions";
 import { createReducer } from "@reduxjs/toolkit";
@@ -14,7 +46,7 @@ const inititalState = {
 
 export const rootReducer = createReducer(inititalState, {
     [addActionContact] (state, action) {
-         state.contacts.items.splice(0,0,   action.payload);
+         state.contacts.items.splice(0,0,  action.payload);
     },
     [deleteActionContact] (state, action) {
         state.contacts.items = state.contacts.items.filter(contact => contact.id !== action.payload)
@@ -27,31 +59,6 @@ export const rootReducer = createReducer(inititalState, {
 
 
 
-
-// Redux ToolKit + createSlice
-
-// import { createSlice } from "@reduxjs/toolkit";
-
-// export const rootReducer = createSlice({
-//     name: 'contacts',
-//     inititalState: {
-//         items: [],
-//         filter: '',
-//     },
-//     reducers: {
-//         addActionContact(state, action) {
-//                      state.items.splice(0,0, action.payload);
-//                 },
-//         deleteActionContact(state, action) {
-//                     state.items = state.items.filter(contact => contact.id !== action.payload)
-//                 },
-//         changeActionFilter(state, action) {
-//                     state.filter = action.payload;
-//                 },
-//     }
-// })
-
-// export const { addActionContact, deleteActionContact, changeActionFilter} = rootReducer.actions;
 
 
 // Redux

@@ -1,7 +1,10 @@
 import { ButtonForm, LabelStyle } from './ContactForm.styled';
 import { Formik, Form, Field, ErrorMessage } from 'formik';
 import * as yup from 'yup';
-import PropTypes from 'prop-types';
+import { useDispatch, useSelector } from 'react-redux';
+import { getContacts } from 'redux/selectors';
+import { nanoid } from 'nanoid';
+import { addActionContact } from 'redux/actions';
 
 // Создание формы с библиотекой Formik
 
@@ -10,19 +13,43 @@ const schema = yup.object().shape({
   number: yup.number().min(4).required(),
 });
 
+const initialValues = {
+  name: '',
+  number: '',
+};
 
-export const ContactForm = ({ onSubmit }) => {
-  const initialValues = {
-    name: '',
-    number: '',
+export const ContactForm = () => {
+  const contacts = useSelector(getContacts);
+  const dispatch = useDispatch();
+
+  const addNewContact = (values, actions) => {
+    const newContact = {
+    id: nanoid(),
+    name: values.name,
+    number: values.number,
   };
+  if (
+    contacts
+      .map(contact => {
+        return contact.name;
+      })
+      .includes(newContact.name)
+  ) {
+    alert(`${newContact.name} is already in contacts!`);
+  } else {
+   
+    dispatch(addActionContact(newContact));
+    actions.resetForm();
+  }
+};
+
 
   return (
     <>
       <Formik
         initialValues={initialValues}
         validationSchema={schema}
-        onSubmit={onSubmit}
+        onSubmit={addNewContact}
       >
         <Form autoComplete="off">
           <LabelStyle htmlFor="name">
@@ -54,72 +81,3 @@ export const ContactForm = ({ onSubmit }) => {
     </>
   );
 };
-
-ContactForm.propTypes = {
-  onSubmit: PropTypes.func.isRequired,
-};
-
-// Контролируемая форма + добавил хуки
-
-// import { Component } from 'react';
-// import { nanoid } from "nanoid"
-// import {useState} from 'react';
-
-// export const Form = () => {
-//
-// const [name, setName] = useState('');
-// const [number, setNumber] = useState('');
-
-//   nameInputId = nanoid();
-//   numberInputId = nanoid();
-
-//   const handleChange = event => {
-//     const { name, value } = event.currentTarget;
-
-//     setName({ [name]: value });
-//   };
-
-//   const handleSubmit = event => {
-//     event.preventDefault();
-//     onSubmit(name, number);
-//     setName('');
-//     setNumber('');
-
-//   };
-
-
-//
-//     return (
-//       <form onSubmit={this.handleSubmit}>
-//         <label htmlFor={this.nameInputId}>
-//             Name
-//         <input
-//           type="text"
-//           name="name"
-//           value={this.state.name}
-//           onChange={this.handleChange}
-//           id={this.nameInputId}
-//           pattern="^[a-zA-Zа-яА-Я]+(([' -][a-zA-Zа-яА-Я ])?[a-zA-Zа-яА-Я]*)*$"
-//           title="Name may contain only letters, apostrophe, dash and spaces. For example Adrian, Jacob Mercer, Charles de Batz de Castelmore d'Artagnan"
-//           required
-//         />
-// </label>
-//         <label htmlFor={this.numberInputId}>
-//             Number
-//         <input
-//           type="tel"
-//           name="number"
-//           value={this.state.number}
-//           onChange={this.handleChange}
-//           id={this.numberInputId}
-//           pattern="\+?\d{1,4}?[-.\s]?\(?\d{1,3}?\)?[-.\s]?\d{1,4}[-.\s]?\d{1,4}[-.\s]?\d{1,9}"
-//           title="Phone number must be digits and can contain spaces, dashes, parentheses and can start with +"
-//           required
-//         />
-
-//         <button type="submit">Add contact</button>
-//         </label>
-//       </form>
-//     );
-//   }
-//

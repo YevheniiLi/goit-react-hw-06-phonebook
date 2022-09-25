@@ -1,17 +1,35 @@
-import { Box } from 'components/Box';
-import { ContactItem, ContactText } from './ContactList.styled';
+import { Box } from 'components/styles/Box';
+import { ContactItem , ContactText} from './ContactList.styled';
 import PropTypes from 'prop-types';
+import { useSelector } from 'react-redux';
+import { getFilter } from 'redux/selectors';
+import { getContacts } from 'redux/selectors';
 import { ButtonForm } from 'components/ContactForm/ContactForm.styled';
+import { deleteActionContact } from 'redux/actions';
+import { useDispatch } from 'react-redux';
 
-export const ContactList = ({ contacts, onRemoveClick }) => {
+export const ContactList = () => {
+  const contacts = useSelector(getContacts);
+  const dispatch = useDispatch();
+  const filter = useSelector(getFilter).toLowerCase();
+
+
+  const visibleContacts = contacts.filter(contact =>
+    contact.name.toLowerCase().includes(filter)
+  );
+  
+  const deleteContact = contactId => {
+    dispatch(deleteActionContact(contactId))
+  };
+
   return (
     <ul>
-      {contacts.map(({ id, name, number }) => (
+      {visibleContacts.map(({ id, name, number }) => (
         <Box as="li" mb={3} key={id}>
           <ContactItem id={id}>
-            <ContactText>{name}: </ContactText>
+          <ContactText>{name}: </ContactText>
             <ContactText>{number}</ContactText>
-            <ButtonForm type="button" onClick={() => onRemoveClick(id)}>
+            <ButtonForm type="button" onClick={() => deleteContact(id)}>
               Delete
             </ButtonForm>
           </ContactItem>
@@ -29,5 +47,4 @@ ContactList.propTypes = {
       number: PropTypes.string.isRequired,
     })
   ),
-  onRemoveClick: PropTypes.func.isRequired,
 };
