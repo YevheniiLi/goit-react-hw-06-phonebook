@@ -2,9 +2,9 @@ import { ButtonForm, LabelStyle } from './ContactForm.styled';
 import { Formik, Form, Field, ErrorMessage } from 'formik';
 import * as yup from 'yup';
 import { useDispatch, useSelector } from 'react-redux';
-import { getContacts } from 'redux/selectors';
+import { getContacts } from 'redux/reducer';
 import { nanoid } from 'nanoid';
-import { addActionContact } from 'redux/actions';
+import { addActionContact } from 'redux/reducer';
 
 // Создание формы с библиотекой Formik
 

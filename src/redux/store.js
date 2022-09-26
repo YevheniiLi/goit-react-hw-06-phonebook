@@ -1,12 +1,35 @@
-// Redux Toolkit 
+// Redux Toolkit
 
 import { configureStore } from '@reduxjs/toolkit';
-import { rootReducer } from 'redux/reducer';
+import { persistedClickReducer } from 'redux/reducer';
+import { persistStore } from 'redux-persist';
+import {
+  FLUSH,
+  REHYDRATE,
+  PAUSE,
+  PERSIST,
+  PURGE,
+  REGISTER,
+} from 'redux-persist';
 
 export const store = configureStore({
-    reducer: rootReducer,
-    
-})
+  reducer: {
+    contacts: persistedClickReducer,
+  },
+  middleware(getDefaultMiddleware) {
+    return getDefaultMiddleware({
+      serializableCheck: {
+        ignoredActions: [FLUSH, REHYDRATE, PAUSE, PERSIST, PURGE, REGISTER],
+      },
+    });
+  },
+});
+
+export const persistor = persistStore(store);
+
+
+
+
 
 
 // Redux
