@@ -27,11 +27,6 @@ export const store = configureStore({
 
 export const persistor = persistStore(store);
 
-
-
-
-
-
 // Redux
 
 // import { createStore } from 'redux';

@@ -24,25 +24,23 @@ export const ContactForm = () => {
 
   const addNewContact = (values, actions) => {
     const newContact = {
-    id: nanoid(),
-    name: values.name,
-    number: values.number,
+      id: nanoid(),
+      name: values.name,
+      number: values.number,
+    };
+    if (
+      contacts
+        .map(contact => {
+          return contact.name;
+        })
+        .includes(newContact.name)
+    ) {
+      alert(`${newContact.name} is already in contacts!`);
+    } else {
+      dispatch(addActionContact(newContact));
+      actions.resetForm();
+    }
   };
-  if (
-    contacts
-      .map(contact => {
-        return contact.name;
-      })
-      .includes(newContact.name)
-  ) {
-    alert(`${newContact.name} is already in contacts!`);
-  } else {
-   
-    dispatch(addActionContact(newContact));
-    actions.resetForm();
-  }
-};
-
 
   return (
     <>

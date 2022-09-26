@@ -1,11 +1,10 @@
-// Redux ToolKit +
+// Redux ToolKit
 
 // import { createAction } from "@reduxjs/toolkit";
 
 // export const addActionContact = createAction('contact/addActionContact');
 // export const deleteActionContact = createAction('contact/deleteActionContact');
 // export const changeActionFilter = createAction('filter/changeActionFilter');
-
 
 
 // Redux
@@ -30,5 +29,3 @@
 //         payload: value,
 //     }
 // }
-
-// Redux Toolkit
